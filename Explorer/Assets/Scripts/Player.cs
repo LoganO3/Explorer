@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
 
     [SerializeField] float moveSpeed = 1f;
-    [SerializeField] float health = 3f;
+    [SerializeField] float health = 100f;
 
     // Start is called before the first frame update
     void Start()
@@ -23,17 +23,31 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
-        if (!damageDealer) { return; }
-        HandleDamage(damageDealer);
+        Enemy enemy = other.gameObject.GetComponent<Enemy>();
+        if (enemy) { HandleDamage(damageDealer); }
+        else if (damageDealer) { HandleProjectileDamage(damageDealer); }
+        else { return; }
     }
-
     private void HandleDamage(DamageDealer damageDealer)
     {
         health -= damageDealer.GetDamage();
-        damageDealer.Hit();
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
-        private void Move()
+    private void HandleProjectileDamage(DamageDealer damageDealer)
+    {
+        health -= damageDealer.GetDamage();
+        damageDealer.Hit();
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Move()
     {
         var deltax = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
         var deltay = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
