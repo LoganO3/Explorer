@@ -7,7 +7,11 @@ public class Player : MonoBehaviour
 
     [SerializeField] float moveSpeed = 1f;
     [SerializeField] float health = 100f;
+    [SerializeField] float projectileSpeed = 10f;
+    [SerializeField] float projectileFiringPeriod = 1f;
+    [SerializeField] GameObject projectile;
 
+    Coroutine firingCoroutine;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +22,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
+        Fire();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -61,5 +66,26 @@ public class Player : MonoBehaviour
     {
       Vector2 playerLocation = new Vector2(transform.position.x, transform.position.y);
         return playerLocation;
+    }
+    private void Fire()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            firingCoroutine = StartCoroutine(FireContinuously());
+        }
+        if (Input.GetButtonUp("Fire1"))
+        {
+            StopCoroutine(firingCoroutine);
+        }
+    }
+
+    IEnumerator FireContinuously()
+    {
+        while (true)
+        {
+            GameObject laser = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
+            laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
+            yield return new WaitForSeconds(projectileFiringPeriod);
+        }
     }
 }

@@ -30,4 +30,23 @@ public class Enemy : MonoBehaviour
         transform.position = Vector3.MoveTowards
         (transform.position, targetPosition, movementThisFrame);
    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
+        Enemy enemy = other.gameObject.GetComponent<Enemy>();
+        if (enemy) {return; }
+        else if (damageDealer) { HandleProjectileDamage(damageDealer); Debug.Log("hit"); }
+        else { return; }
+    }
+
+    private void HandleProjectileDamage(DamageDealer damageDealer)
+    {
+        health -= damageDealer.GetDamage();
+        damageDealer.Hit();
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
