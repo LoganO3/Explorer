@@ -6,7 +6,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
-    [SerializeField] float moveSpeed =10f;
+    [SerializeField] float moveSpeed =2f;
     [SerializeField] float health = 3f;
 
     Player player;
