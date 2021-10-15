@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            GameObject projectiles = Instantiate(projectile, transform.position, Quaternion.identity);
+            GameObject projectiles = Instantiate(projectile, transform.position + new Vector3(1, 0, 0), Quaternion.identity);
         }
     }
 }
