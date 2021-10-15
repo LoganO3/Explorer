@@ -5,9 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    [SerializeField] float moveSpeed = 1f;
+    [SerializeField] float moveSpeed = 10f;
     [SerializeField] float health = 100f;
-    [SerializeField] float projectileSpeed = 10f;
     [SerializeField] float projectileFiringPeriod = 1f;
     [SerializeField] GameObject projectile;
 
@@ -83,9 +82,7 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            GameObject laser = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
-            laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
-            yield return new WaitForSeconds(projectileFiringPeriod);
+            GameObject projectiles = Instantiate(projectile, transform.position, Quaternion.identity);
         }
     }
 }
