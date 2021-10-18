@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] Transform gun;
-    [SerializeField] GameObject projectile;
+    [Header("Stats")]
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float health = 100f;
+    [Header("Shooting")]
+    [SerializeField] Transform gun;
+    [SerializeField] GameObject projectile;
     [SerializeField] float projectileFiringPeriod = 1f;
+    [SerializeField] public int accessLevel = 0;
 
     private Vector2 lookDirection;
     private float lookAngle;
-    public bool alive;
 
     Coroutine firingCoroutine;
 
@@ -26,7 +28,9 @@ public class Player : MonoBehaviour
     void Update()
     {
         lookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        Debug.Log(lookDirection);
         lookAngle = Mathf.Atan2(lookDirection.x, lookDirection.y) * Mathf.Rad2Deg;
+        Debug.Log(lookAngle);
         transform.rotation = Quaternion.Euler(0f, 0f, lookAngle - 90f);
         Move();
         Fire();
@@ -56,7 +60,6 @@ public class Player : MonoBehaviour
         damageDealer.Hit();
         if (health <= 0)
         {
-            alive = false;
             Destroy(gameObject);
         }
     }
