@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
+    [SerializeField] Transform gun;
+    [SerializeField] GameObject projectile;
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float health = 100f;
     [SerializeField] float projectileFiringPeriod = 1f;
-    [SerializeField] GameObject projectile;
+    private Vector2 lookDirection;
+    private float lookAngle;
 
     Coroutine firingCoroutine;
     // Start is called before the first frame update
@@ -20,6 +22,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        lookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        lookAngle = Mathf.Atan2(lookDirection.x, lookDirection.y) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, lookAngle - 90f);
         Move();
         Fire();
     }
@@ -77,12 +82,14 @@ public class Player : MonoBehaviour
             StopCoroutine(firingCoroutine);
         }
     }
-
+    
     IEnumerator FireContinuously()
     {
         while (true)
         {
-            GameObject projectiles = Instantiate(projectile, transform.position + new Vector3(1, 0, 0), Quaternion.identity);
+            
+            GameObject projectiles = Instantiate(projectile, gun.position, gun.rotation);
+            projectiles.GetComponent<Rigidbody2D>().velocity = gun.up * 10f;
         }
     }
 }
