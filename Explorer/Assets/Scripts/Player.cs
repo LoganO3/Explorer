@@ -9,10 +9,13 @@ public class Player : MonoBehaviour
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float health = 100f;
     [SerializeField] float projectileFiringPeriod = 1f;
+
     private Vector2 lookDirection;
     private float lookAngle;
+    public bool alive;
 
     Coroutine firingCoroutine;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +40,7 @@ public class Player : MonoBehaviour
         else if (damageDealer) { HandleProjectileDamage(damageDealer); }
         else { return; }
     }
+
     private void HandleDamage(DamageDealer damageDealer)
     {
         health -= damageDealer.GetDamage();
@@ -52,6 +56,7 @@ public class Player : MonoBehaviour
         damageDealer.Hit();
         if (health <= 0)
         {
+            alive = false;
             Destroy(gameObject);
         }
     }
@@ -71,6 +76,7 @@ public class Player : MonoBehaviour
       Vector2 playerLocation = new Vector2(transform.position.x, transform.position.y);
         return playerLocation;
     }
+
     private void Fire()
     {
         if (Input.GetButtonDown("Fire1"))
@@ -87,9 +93,9 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            
-            GameObject projectiles = Instantiate(projectile, gun.position, gun.rotation);
+            GameObject projectiles = Instantiate(projectile, gun.position, gun.rotation) as GameObject;
             projectiles.GetComponent<Rigidbody2D>().velocity = gun.up * 10f;
+            yield return new WaitForSeconds(projectileFiringPeriod);
         }
     }
 }
