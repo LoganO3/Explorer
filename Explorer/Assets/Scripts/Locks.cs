@@ -22,10 +22,13 @@ public class Locks : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Player player = other.gameObject.GetComponent<Player>();
-        if (player.accessLevel >= lockLevel)
+        if (player)
         {
-            Destroy(gameObject);
+            if (player.accessLevel >= lockLevel)
+            {
+                Destroy(gameObject);
+            }
+            else { return; }
         }
-        else { return; }
     }
 }
