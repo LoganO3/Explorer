@@ -15,16 +15,20 @@ public class Player : MonoBehaviour
     [SerializeField] float projectileFiringPeriod = 1f;
     [Header("Misc")]
     [SerializeField] public int accessLevel = 0;
+    [SerializeField] float invisabilityDurration = 1f;
 
     private Vector2 lookDirection;
     private float lookAngle;
+    private Rigidbody2D body;
 
     Coroutine firingCoroutine;
+
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(DrainEnergy());
+        body = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -42,8 +46,16 @@ public class Player : MonoBehaviour
     {
         DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
         Enemy enemy = other.gameObject.GetComponent<Enemy>();
-        if (enemy) { HandleDamage(damageDealer); }
-        else if (damageDealer) { HandleProjectileDamage(damageDealer); }
+        if (enemy)
+        {
+            HandleDamage(damageDealer);
+            StartCoroutine(DrainEnergy());
+        }
+        else if (damageDealer)
+        {
+            HandleProjectileDamage(damageDealer);
+            StartCoroutine(DrainEnergy());
+        }
     }
 
     private void HandleDamage(DamageDealer damageDealer)
@@ -81,7 +93,7 @@ public class Player : MonoBehaviour
         {
             moveSpeed = 10f;
         }
-       else if (energy >= 80)
+        else if (energy >= 80)
         {
             moveSpeed = 9f;
         }
@@ -95,7 +107,7 @@ public class Player : MonoBehaviour
         }
         else if (energy >= 50)
         {
-            moveSpeed = 6f;      
+            moveSpeed = 6f;
         }
         else if (energy >= 40)
         {
@@ -126,10 +138,10 @@ public class Player : MonoBehaviour
 
     public Vector2 CurrentLocation()
     {
-      Vector2 playerLocation = new Vector2(transform.position.x, transform.position.y);
+        Vector2 playerLocation = new Vector2(transform.position.x, transform.position.y);
         return playerLocation;
     }
-    
+
     public float GetHealth()
     {
         return health;
@@ -151,6 +163,7 @@ public class Player : MonoBehaviour
             StopCoroutine(firingCoroutine);
         }
     }
+
     IEnumerator DrainEnergy()
     {
         while (true)
@@ -159,6 +172,7 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(energyDrainPeriod);
         }
     }
+
     IEnumerator FireContinuously()
     {
         while (true)
@@ -166,6 +180,17 @@ public class Player : MonoBehaviour
             GameObject projectiles = Instantiate(projectile, gun.position, gun.rotation) as GameObject;
             projectiles.GetComponent<Rigidbody2D>().velocity = gun.up * 10f;
             yield return new WaitForSeconds(projectileFiringPeriod);
+        }
+    }
+
+    IEnumerator Invisability()
+    {
+        while (true)
+        {
+            gameObject.layer = 9;
+            yield return new WaitForSeconds(invisabilityDurration);
+            gameObject.layer = 7;
+            StopCoroutine(Invisability());
         }
     }
 }
