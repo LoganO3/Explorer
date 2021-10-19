@@ -17,9 +17,15 @@ public class Locks : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player.accessLevel >= lockLevel)
+
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Player player = other.gameObject.GetComponent<Player>();
+        if (player.accessLevel >= lockLevel)
         {
             Destroy(gameObject);
         }
+        else { return; }
     }
 }
