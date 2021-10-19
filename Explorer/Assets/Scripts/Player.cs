@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] float energy = 100f;
     [SerializeField] float energyDrainPeriod = 10f;
     [Header("Shooting")]
-    [SerializeField] Transform gun;
+    [SerializeField] Transform gunBarrel;
     [SerializeField] GameObject projectile;
     [SerializeField] float projectileFiringPeriod = 1f;
     [Header("Misc")]
@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     {
         lookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         lookAngle = Mathf.Atan2(lookDirection.x, lookDirection.y) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, lookAngle - 90f);
+        transform.rotation = Quaternion.Euler(0f, 0f, -lookAngle - 90f);
         Move();
         Fire();
         EnergyDamage();
@@ -177,8 +177,8 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            GameObject projectiles = Instantiate(projectile, gun.position, gun.rotation) as GameObject;
-            projectiles.GetComponent<Rigidbody2D>().velocity = gun.up * 10f;
+            GameObject projectiles = Instantiate(projectile, gunBarrel.position, gunBarrel.rotation) as GameObject;
+            projectiles.GetComponent<Rigidbody2D>().velocity = gunBarrel.up * -10f;
             yield return new WaitForSeconds(projectileFiringPeriod);
         }
     }
