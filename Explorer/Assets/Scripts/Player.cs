@@ -129,6 +129,16 @@ public class Player : MonoBehaviour
       Vector2 playerLocation = new Vector2(transform.position.x, transform.position.y);
         return playerLocation;
     }
+    
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    public float GetEnergy()
+    {
+        return energy;
+    }
 
     private void Fire()
     {
