@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     private Vector2 lookDirection;
     private float lookAngle;
     private Rigidbody2D body;
+    
 
     Coroutine firingCoroutine;
 
