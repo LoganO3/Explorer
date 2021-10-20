@@ -20,10 +20,10 @@ public class Player : MonoBehaviour
     private Vector2 lookDirection;
     private float lookAngle;
     private Rigidbody2D body;
-    
+
+    bool hasCollided = false;
 
     Coroutine firingCoroutine;
-
 
     // Start is called before the first frame update
     void Start()
@@ -41,21 +41,24 @@ public class Player : MonoBehaviour
         Move();
         Fire();
         EnergyDamage();
+        hasCollided = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
-        Enemy enemy = other.gameObject.GetComponent<Enemy>();
-        if (enemy)
+        if (hasCollided == false)
         {
-            HandleDamage(damageDealer);
-            StartCoroutine(DrainEnergy());
-        }
-        else if (damageDealer)
-        {
-            HandleProjectileDamage(damageDealer);
-            StartCoroutine(DrainEnergy());
+            hasCollided = true;
+            DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            if (enemy)
+            {
+                HandleDamage(damageDealer);
+            }
+            else if (damageDealer)
+            {
+                HandleProjectileDamage(damageDealer);
+            }
         }
     }
 
@@ -169,8 +172,8 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            energy--;
             yield return new WaitForSeconds(energyDrainPeriod);
+            energy --;
         }
     }
 

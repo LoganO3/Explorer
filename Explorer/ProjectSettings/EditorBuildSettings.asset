@@ -9,13 +9,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Start Game Screen 1.unity
     guid: f99d2a4955d63f04c9175484143ee177
   - enabled: 1
-    path: Assets/1st room scenes/Starting Room 1.unity
+    path: Assets/Scenes/1st room scenes/Starting Room 1.unity
     guid: fa1c522e3247303429e9c8b1c12ec641
   - enabled: 1
-    path: Assets/Hallway/2nd room.unity
+    path: Assets/Scenes/Hallway/2nd room.unity
     guid: 803d39cc80ecc2546874fa8de961b77e
   - enabled: 1
-    path: Assets/Main Office/Security.unity
+    path: Assets/Scenes/Main Office/Security.unity
     guid: b503b0fa139ff6143ab2b1f2a8c95154
   - enabled: 1
     path: Assets/Scenes/Game Over Screen.unity
