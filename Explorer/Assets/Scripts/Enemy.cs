@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] float moveSpeed =2f;
     [SerializeField] float health = 3f;
 
+    bool hasCollided = false;
+
     Player player;
 
     // Start is called before the first frame update
@@ -21,11 +23,11 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         Move();
+        hasCollided = false;
     }
 
     private void Move()
    {
-
         if (!player) { return; }
         var targetPosition = player.CurrentLocation();
         var movementThisFrame = moveSpeed * Time.deltaTime;
@@ -35,11 +37,13 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
-        Enemy enemy = other.gameObject.GetComponent<Enemy>();
-        if (enemy) {return; }
-        else if (damageDealer) { HandleProjectileDamage(damageDealer); Debug.Log("hit"); }
-        else { return; }
+        if (hasCollided == false)
+        {
+            hasCollided = true;
+            DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
+            Projectile projectile = other.gameObject.GetComponent<Projectile>();
+            if (projectile) { HandleProjectileDamage(damageDealer); Debug.Log("hit"); }
+        }
     }
 
     private void HandleProjectileDamage(DamageDealer damageDealer)
