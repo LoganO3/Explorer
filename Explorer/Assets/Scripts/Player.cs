@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float health = 100f;
     [SerializeField] float energy = 100f;
-    [SerializeField] float energyDrainPeriod = 10f;
+    [SerializeField] float energyDrainTimer = 0f;
     [Header("Shooting")]
     [SerializeField] Transform gunBarrel;
     [SerializeField] GameObject projectile;
@@ -19,17 +19,17 @@ public class Player : MonoBehaviour
 
     private Vector2 lookDirection;
     private float lookAngle;
-    private Rigidbody2D body;
+    float moventCheckTimer = .5f;
 
     bool hasCollided = false;
+    bool hasMoved = false;
 
     Coroutine firingCoroutine;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(DrainEnergy());
-        body = GetComponent<Rigidbody2D>();
+        StartCoroutine(MovementCheck());
     }
 
     // Update is called once per frame
@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
         Move();
         Fire();
         EnergyDamage();
+        energyDrainControl();
         hasCollided = false;
     }
 
@@ -140,10 +141,29 @@ public class Player : MonoBehaviour
         }
     }
 
-    public Vector2 CurrentLocation()
+    public Vector3 CurrentLocation()
     {
-        Vector2 playerLocation = new Vector2(transform.position.x, transform.position.y);
+        Vector3 playerLocation = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         return playerLocation;
+    }
+
+
+    private void energyDrainControl()
+    {
+        if(hasMoved == true)
+        {
+            energyDrainTimer++;
+            if (energyDrainTimer >= 10)
+            {
+                energy--;
+                energyDrainTimer = 0;
+            }
+            hasMoved = false;
+        }
+        else
+        {
+            return;
+        }
     }
 
     public float GetHealth()
@@ -168,14 +188,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    IEnumerator DrainEnergy()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(energyDrainPeriod);
-            energy --;
-        }
-    }
 
     IEnumerator FireContinuously()
     {
@@ -195,6 +207,20 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(invisabilityDurration);
             gameObject.layer = 7;
             StopCoroutine(Invisability());
+        }
+    }
+
+    IEnumerator MovementCheck()
+    {
+        while (true)
+        {
+            var postion1 = transform.position;
+            yield return new WaitForSeconds(moventCheckTimer);
+            var postion2 = transform.position;
+            if(postion1 != postion2)
+            {
+                hasMoved = true;
+            }
         }
     }
 }
