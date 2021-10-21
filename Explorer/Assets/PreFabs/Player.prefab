@@ -214,7 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   health: 100
-  energy: 101
+  energy: 100
   energyDrainPeriod: 10
   gunBarrel: {fileID: 847776913}
   projectile: {fileID: 9147475096757408091, guid: ba9fdc2b6d6be3a4fb0c3ed7aea1ac3d, type: 3}
