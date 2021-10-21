@@ -11,16 +11,17 @@ public class Player : MonoBehaviour
     [SerializeField] float energyDrainTimer = 0f;
     [Header("Shooting")]
     [SerializeField] Transform gunBarrel;
-    [SerializeField] GameObject projectile;
-    [SerializeField] float projectileFiringPeriod = 1f;
+    [SerializeField] public GameObject projectile;
+    [SerializeField] public float projectileFiringPeriod = 1f;
     [Header("Misc")]
     [SerializeField] public int accessLevel = 0;
     [SerializeField] float invisabilityDurration = 1f;
 
     private Vector2 lookDirection;
     private float lookAngle;
-    float moventCheckTimer = .5f;
+    public bool isUnarmed = true;
 
+    float moventCheckTimer = .5f;
     bool hasCollided = false;
     bool hasMoved = false;
 
@@ -193,9 +194,13 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            GameObject projectiles = Instantiate(projectile, gunBarrel.position, gunBarrel.rotation) as GameObject;
-            projectiles.GetComponent<Rigidbody2D>().velocity = gunBarrel.up * -10f;
-            yield return new WaitForSeconds(projectileFiringPeriod);
+            if(isUnarmed == true){ yield return new WaitForSeconds(projectileFiringPeriod); }
+            else
+            {
+                GameObject projectiles = Instantiate(projectile, gunBarrel.position, gunBarrel.rotation) as GameObject;
+                projectiles.GetComponent<Rigidbody2D>().velocity = gunBarrel.up * -10f;
+                yield return new WaitForSeconds(projectileFiringPeriod);
+            }
         }
     }
 
