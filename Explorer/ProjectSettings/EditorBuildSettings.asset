@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Hallway/2nd room.unity
     guid: 803d39cc80ecc2546874fa8de961b77e
   - enabled: 1
-    path: Assets/Scenes/Main Office/Security.unity
+    path: Assets/Scenes/Main Room/Security.unity
     guid: b503b0fa139ff6143ab2b1f2a8c95154
   - enabled: 1
     path: Assets/Scenes/Game Over Screen.unity
