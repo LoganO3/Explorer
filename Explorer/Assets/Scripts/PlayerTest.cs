@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerTest : MonoBehaviour
 {
-
     [Header("Stats")]
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float health = 100f;
@@ -21,7 +20,6 @@ public class Player : MonoBehaviour
     private Vector2 lookDirection;
     private float lookAngle;
     public bool isUnarmed = true;
-    public bool canShoot = true;
 
     float moventCheckTimer = .5f;
     bool hasCollided = false;
@@ -197,13 +195,11 @@ public class Player : MonoBehaviour
         while (true)
         {
             if (isUnarmed == true) { yield return new WaitForSeconds(projectileFiringPeriod); }
-            else if (canShoot == true)
+            else
             {
                 GameObject projectiles = Instantiate(projectile, gunBarrel.position, gunBarrel.rotation) as GameObject;
                 projectiles.GetComponent<Rigidbody2D>().velocity = gunBarrel.up * -10f;
-                canShoot = false;
                 yield return new WaitForSeconds(projectileFiringPeriod);
-                canShoot = true;
             }
         }
     }

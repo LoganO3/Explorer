@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 847776912}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.497, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1042541677}
@@ -127,6 +127,8 @@ GameObject:
   - component: {fileID: 8972185961397569883}
   - component: {fileID: 1828369735725731664}
   - component: {fileID: 3933703181456596021}
+  - component: {fileID: 1199292103}
+  - component: {fileID: 1199292104}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -215,12 +217,14 @@ MonoBehaviour:
   moveSpeed: 10
   health: 100
   energy: 100
-  energyDrainPeriod: 10
+  energyDrainTimer: 0
   gunBarrel: {fileID: 847776913}
   projectile: {fileID: 9147475096757408091, guid: ba9fdc2b6d6be3a4fb0c3ed7aea1ac3d, type: 3}
   projectileFiringPeriod: 1
   accessLevel: 0
   invisabilityDurration: 1
+  isUnarmed: 1
+  canShoot: 1
 --- !u!58 &8972185961397569883
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -274,3 +278,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1199292103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7046635069588075566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e6a2da8346f8ac47861c08736f3a738, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1199292104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7046635069588075566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 741a6fa3036fcbb4ca0ff3ab53362fdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

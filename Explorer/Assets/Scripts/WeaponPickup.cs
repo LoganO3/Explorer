@@ -4,40 +4,44 @@ using UnityEngine;
 
 public class WeaponPickup : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Player player = other.gameObject.GetComponent<Player>();
-        if (gameObject.layer == 10)
+        Player player = gameObject.GetComponent<Player>();
+        Pistol pistol = other.gameObject.GetComponent<Pistol>();
+        Shotgun shotgun = other.gameObject.GetComponent<Shotgun>();
+        Sniper sniper = other.gameObject.GetComponent<Sniper>();
+        AutomaticGun automatic = other.gameObject.GetComponent<AutomaticGun>();
+        Knife knife = other.gameObject.GetComponent<Knife>();
+        if (pistol)
         {
-            player.projectileFiringPeriod = 1f;
+            player.projectileFiringPeriod = 2f;
             player.isUnarmed = false;
+            Destroy(other.gameObject);
         }
-        else if (gameObject.layer == 11)
+        else if (shotgun)
         {
-            player.projectileFiringPeriod = .5f;
+            player.projectileFiringPeriod = 2f;
             player.isUnarmed = false;
+            Destroy(other.gameObject);
         }
-        else if (gameObject.layer == 12)
-        {
-            player.projectileFiringPeriod = 2.5f;
-            player.isUnarmed = false;
-        }
-        else if (gameObject.layer == 13)
+        else if (sniper)
         {
             player.projectileFiringPeriod = 3f;
             player.isUnarmed = false;
+            Destroy(other.gameObject);
         }
-        else {return;}
+        else if (automatic)
+        {
+            player.projectileFiringPeriod = 0.1f;
+            player.isUnarmed = false;
+            Destroy(other.gameObject);
+        }
+        else if (knife)
+        {
+            player.projectileFiringPeriod = 0f;
+            player.isUnarmed = false;
+            Destroy(other.gameObject);
+        }
+        else { return; }
     }
 }
