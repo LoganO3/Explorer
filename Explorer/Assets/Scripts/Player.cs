@@ -23,6 +23,12 @@ public class Player : MonoBehaviour
     public bool isUnarmed = true;
     public bool canShoot = true;
 
+    bool pistolEquip = false;
+    bool automaticEquip = false;
+    bool shotgunEquip = false;
+    bool sniperEquip = false;
+    bool knifeEquip = false;
+    float waitTimer = .25f;
     float moventCheckTimer = .5f;
     bool hasCollided = false;
     bool hasMoved = false;
@@ -45,6 +51,7 @@ public class Player : MonoBehaviour
         Fire();
         EnergyDamage();
         energyDrainControl();
+        WeaponChanges();
         hasCollided = false;
     }
 
@@ -63,7 +70,33 @@ public class Player : MonoBehaviour
             {
                 HandleProjectileDamage(damageDealer);
             }
-        }
+            else if (other.gameObject.layer == 10)
+            {
+                pistolEquip = true;
+                Destroy(other.gameObject);
+            }
+            else if (other.gameObject.layer == 11)
+            {
+                automaticEquip = true;
+                Destroy(other.gameObject);
+            }
+            else if (other.gameObject.layer == 12)
+            {
+                shotgunEquip = true;
+                Destroy(other.gameObject);
+            }
+            else if (other.gameObject.layer == 13)
+            {
+                sniperEquip = true;
+                Destroy(other.gameObject);
+            }
+            else if (other.gameObject.layer == 14)
+            {
+                knifeEquip = true;
+                Destroy(other.gameObject);
+            }
+        else { return; }
+    }
     }
 
     private void HandleDamage(DamageDealer damageDealer)
@@ -144,6 +177,55 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void WeaponChanges()
+    {
+        if (pistolEquip == true)
+        {
+            projectileFiringPeriod = 1f;
+            isUnarmed = false;
+            automaticEquip = false;
+            shotgunEquip = false;
+            sniperEquip = false;
+            knifeEquip = false;
+        }
+        else if (automaticEquip == true)
+        {
+            projectileFiringPeriod = 0.1f;
+            isUnarmed = false;
+            pistolEquip = false;
+            shotgunEquip = false;
+            sniperEquip = false;
+            knifeEquip = false;
+        }
+        else if (shotgunEquip == true)
+        {
+            projectileFiringPeriod = 2f;
+            isUnarmed = false;
+            pistolEquip = false;
+            automaticEquip = false;
+            sniperEquip = false;
+            knifeEquip = false;
+        }
+        else if (sniperEquip == true)
+        {
+            projectileFiringPeriod = 3f;
+            isUnarmed = false;
+            pistolEquip = false;
+            shotgunEquip = false;
+            automaticEquip = false;
+            knifeEquip = false;
+        }
+        else if (knifeEquip == true)
+        {
+            projectileFiringPeriod = 0f;
+            isUnarmed = false;
+            pistolEquip = false;
+            shotgunEquip = false;
+            sniperEquip = false;
+            automaticEquip = false;
+        }
+
+    }
     public Vector3 CurrentLocation()
     {
         Vector3 playerLocation = new Vector3(transform.position.x, transform.position.y, transform.position.z);
@@ -188,15 +270,22 @@ public class Player : MonoBehaviour
         if (Input.GetButtonUp("Fire1"))
         {
             StopCoroutine(firingCoroutine);
+            StartCoroutine(ResetFiring());
         }
     }
 
+    IEnumerator ResetFiring()
+    {
+        yield return new WaitForSeconds(projectileFiringPeriod);
+        canShoot = true;
+        StopCoroutine(ResetFiring());
+    }
 
     IEnumerator FireContinuously()
     {
         while (true)
         {
-            if (isUnarmed == true) { yield return new WaitForSeconds(projectileFiringPeriod); }
+            if (isUnarmed == true) { yield return new WaitForSeconds(waitTimer); }
             else if (canShoot == true)
             {
                 GameObject projectiles = Instantiate(projectile, gunBarrel.position, gunBarrel.rotation) as GameObject;
@@ -205,6 +294,8 @@ public class Player : MonoBehaviour
                 yield return new WaitForSeconds(projectileFiringPeriod);
                 canShoot = true;
             }
+            else
+            { yield return new WaitForSeconds(waitTimer); }
         }
     }
 
