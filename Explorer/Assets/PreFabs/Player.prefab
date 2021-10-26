@@ -606,5 +606,17 @@ MonoBehaviour:
   projectileFiringPeriod: 1
   accessLevel: 0
   invisabilityDurration: 1
+  hasPistol: 0
+  hasAutomatic: 0
+  hasShotgun: 0
+  hasSniper: 0
+  hasKnife: 0
+  weapons:
+  - {fileID: 4850441114275741390}
+  - {fileID: 1042541676}
+  - {fileID: 2386782156823051834}
+  - {fileID: 6497848499281310513}
+  - {fileID: 488807725}
+  currentWeapon: 1000
   isUnarmed: 1
   canShoot: 1

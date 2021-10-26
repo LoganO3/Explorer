@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     [Header("Misc")]
     [SerializeField] public int accessLevel = 0;
     [SerializeField] float invisabilityDurration = 1f;
+    [Header("Weapons")]
 
     public GameObject[] weapons;
     public int currentWeapon = 0;
@@ -26,11 +27,6 @@ public class Player : MonoBehaviour
     public bool isUnarmed = true;
     public bool canShoot = true;
 
-    bool pistolEquip = false;
-    bool automaticEquip = false;
-    bool shotgunEquip = false;
-    bool sniperEquip = false;
-    bool knifeEquip = false;
     bool hasPistol = false;
     bool hasAutomatic = false;
     bool hasShotgun = false;
@@ -61,18 +57,17 @@ public class Player : MonoBehaviour
         Fire();
         EnergyDamage();
         energyDrainControl();
-        WeaponChanges();
         hasCollided = false;
         for (int i = 1; i <= weaponCount; i++)
         {
             if (Input.GetKeyDown("" + i))
             {
                 currentWeapon = i - 1;
-                if (i == 0 && hasKnife == true) { SwitchWeapon(currentWeapon); }
-                if (i == 1 && hasPistol == true) { SwitchWeapon(currentWeapon); }
-                if (i == 2 && hasAutomatic == true) { SwitchWeapon(currentWeapon); }
-                if (i == 3 && hasSniper == true) { SwitchWeapon(currentWeapon); }
-                if (i == 4 && hasShotgun == true) { SwitchWeapon(currentWeapon); }
+                if (i == 1 && hasKnife == true) { SwitchWeapon(currentWeapon);
+                }
+                if (i == 2 && hasPistol == true) { SwitchWeapon(currentWeapon); }
+                if (i == 3 && hasAutomatic == true) { SwitchWeapon(currentWeapon); }
+                if (i == 4 && hasSniper == true) { SwitchWeapon(currentWeapon); }
                 if (i == 5 && hasShotgun == true) { SwitchWeapon(currentWeapon); }
                 else { return; }
             }
@@ -96,31 +91,36 @@ public class Player : MonoBehaviour
             }
             else if (other.gameObject.layer == 10)
             {
-                pistolEquip = true;
+                isUnarmed = false;
+                hasPistol = true;
                 Destroy(other.gameObject);
             }
             else if (other.gameObject.layer == 11)
             {
-                automaticEquip = true;
+                isUnarmed = false;
+                hasAutomatic = true;
                 Destroy(other.gameObject);
             }
             else if (other.gameObject.layer == 12)
             {
-                shotgunEquip = true;
+                isUnarmed = false;
+                hasShotgun = true;
                 Destroy(other.gameObject);
             }
             else if (other.gameObject.layer == 13)
             {
-                sniperEquip = true;
+                isUnarmed = false;
+                hasSniper = true;
                 Destroy(other.gameObject);
             }
             else if (other.gameObject.layer == 14)
             {
-                knifeEquip = true;
+                isUnarmed = false;
+                hasKnife = true;
                 Destroy(other.gameObject);
             }
-        else { return; }
-    }
+            else { return; }
+        }
     }
 
     private void HandleDamage(DamageDealer damageDealer)
@@ -216,61 +216,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void WeaponChanges()
-    {
-        if (pistolEquip == true)
-        {
-            projectileFiringPeriod = 1f;
-            isUnarmed = false;
-            automaticEquip = false;
-            shotgunEquip = false;
-            sniperEquip = false;
-            knifeEquip = false;
-        }
-        else if (automaticEquip == true)
-        {
-            projectileFiringPeriod = 0.1f;
-            isUnarmed = false;
-            pistolEquip = false;
-            shotgunEquip = false;
-            sniperEquip = false;
-            knifeEquip = false;
-        }
-        else if (shotgunEquip == true)
-        {
-            projectileFiringPeriod = 2f;
-            isUnarmed = false;
-            pistolEquip = false;
-            automaticEquip = false;
-            sniperEquip = false;
-            knifeEquip = false;
-        }
-        else if (sniperEquip == true)
-        {
-            projectileFiringPeriod = 3f;
-            isUnarmed = false;
-            pistolEquip = false;
-            shotgunEquip = false;
-            automaticEquip = false;
-            knifeEquip = false;
-        }
-        else if (knifeEquip == true)
-        {
-            projectileFiringPeriod = 0f;
-            isUnarmed = false;
-            pistolEquip = false;
-            shotgunEquip = false;
-            sniperEquip = false;
-            automaticEquip = false;
-        }
-
-    }
     public Vector3 CurrentLocation()
     {
         Vector3 playerLocation = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         return playerLocation;
     }
-
 
     private void energyDrainControl()
     {
