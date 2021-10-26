@@ -18,6 +18,9 @@ public class Player : MonoBehaviour
     [SerializeField] public int accessLevel = 0;
     [SerializeField] float invisabilityDurration = 1f;
 
+    public GameObject[] weapons;
+    public int currentWeapon = 0;
+    private int weaponCount;
     private Vector2 lookDirection;
     private float lookAngle;
     public bool isUnarmed = true;
@@ -28,6 +31,11 @@ public class Player : MonoBehaviour
     bool shotgunEquip = false;
     bool sniperEquip = false;
     bool knifeEquip = false;
+    bool hasPistol = false;
+    bool hasAutomatic = false;
+    bool hasShotgun = false;
+    bool hasSniper = false;
+    bool hasKnife = false;
     float waitTimer = .25f;
     float moventCheckTimer = .5f;
     bool hasCollided = false;
@@ -38,6 +46,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        weaponCount = weapons.Length;
+        SwitchWeapon(currentWeapon);
         StartCoroutine(MovementCheck());
     }
 
@@ -53,6 +63,20 @@ public class Player : MonoBehaviour
         energyDrainControl();
         WeaponChanges();
         hasCollided = false;
+        for (int i = 1; i <= weaponCount; i++)
+        {
+            if (Input.GetKeyDown("" + i))
+            {
+                currentWeapon = i - 1;
+                if (i == 0 && hasKnife == true) { SwitchWeapon(currentWeapon); }
+                if (i == 1 && hasPistol == true) { SwitchWeapon(currentWeapon); }
+                if (i == 2 && hasAutomatic == true) { SwitchWeapon(currentWeapon); }
+                if (i == 3 && hasSniper == true) { SwitchWeapon(currentWeapon); }
+                if (i == 4 && hasShotgun == true) { SwitchWeapon(currentWeapon); }
+                if (i == 5 && hasShotgun == true) { SwitchWeapon(currentWeapon); }
+                else { return; }
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -126,6 +150,21 @@ public class Player : MonoBehaviour
         var newXPos = transform.position.x + deltax;
         var newYPos = transform.position.y + deltay;
         transform.position = new Vector2(newXPos, newYPos);
+    }
+    void SwitchWeapon(int index)
+    {
+
+        for (int i = 0; i < weaponCount; i++)
+        {
+            if (i == index)
+            {
+                weapons[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                weapons[i].gameObject.SetActive(false);
+            }
+        }
     }
 
     private void EnergyDamage()
