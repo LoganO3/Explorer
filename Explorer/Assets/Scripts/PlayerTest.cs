@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerTest : MonoBehaviour
 {
+
     [Header("Stats")]
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float health = 100f;
@@ -16,11 +17,30 @@ public class PlayerTest : MonoBehaviour
     [Header("Misc")]
     [SerializeField] public int accessLevel = 0;
     [SerializeField] float invisabilityDurration = 1f;
+    [Header("Weapons Info")]
+    [SerializeField] Transform pistolGunBarrel;
+    [SerializeField] public GameObject pistolProjectile;
+    [SerializeField] Transform automaticGunBarrel;
+    [SerializeField] public GameObject automaticProjectile;
+    [SerializeField] Transform shotgunGunBarrel;
+    [SerializeField] public GameObject shotgunProjectile;
+    [SerializeField] Transform sniperGunBarrel;
+    [SerializeField] public GameObject sniperProjectile;
 
+    public GameObject[] weapons;
+    public int currentWeapon = 0;
+    private int weaponCount;
     private Vector2 lookDirection;
     private float lookAngle;
     public bool isUnarmed = true;
+    public bool canShoot = true;
 
+    [SerializeField] bool hasPistol = false;
+    [SerializeField] bool hasAutomatic = false;
+    [SerializeField] bool hasShotgun = false;
+    [SerializeField] bool hasSniper = false;
+    [SerializeField] bool hasKnife = false;
+    float waitTimer = .25f;
     float moventCheckTimer = .5f;
     bool hasCollided = false;
     bool hasMoved = false;
@@ -30,6 +50,8 @@ public class PlayerTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        weaponCount = weapons.Length;
+        SwitchWeapon(currentWeapon);
         StartCoroutine(MovementCheck());
     }
 
@@ -44,6 +66,22 @@ public class PlayerTest : MonoBehaviour
         EnergyDamage();
         energyDrainControl();
         hasCollided = false;
+        for (int i = 1; i <= weaponCount; i++)
+        {
+            if (Input.GetKeyDown("" + i))
+            {
+                currentWeapon = i - 1;
+                if (i == 0 && hasKnife == true) { SwitchWeapon(currentWeapon); }
+                if (i == 1 && hasPistol == true) { SwitchWeapon(currentWeapon); }
+                if (i == 2 && hasAutomatic == true) { SwitchWeapon(currentWeapon); }
+                if (i == 3 && hasSniper == true) { SwitchWeapon(currentWeapon); }
+                if (i == 4 && hasShotgun == true) { SwitchWeapon(currentWeapon); }
+                if (i == 5 && hasShotgun == true) { SwitchWeapon(currentWeapon); }
+
+                else { return; }
+
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -61,6 +99,37 @@ public class PlayerTest : MonoBehaviour
             {
                 HandleProjectileDamage(damageDealer);
             }
+            else if (other.gameObject.layer == 10)
+            {
+                isUnarmed = false;
+                hasPistol = true;
+                Destroy(other.gameObject);
+            }
+            else if (other.gameObject.layer == 11)
+            {
+                isUnarmed = false;
+                hasAutomatic = true;
+                Destroy(other.gameObject);
+            }
+            else if (other.gameObject.layer == 12)
+            {
+                isUnarmed = false;
+                hasShotgun = true;
+                Destroy(other.gameObject);
+            }
+            else if (other.gameObject.layer == 13)
+            {
+                isUnarmed = false;
+                hasSniper = true;
+                Destroy(other.gameObject);
+            }
+            else if (other.gameObject.layer == 14)
+            {
+                isUnarmed = false;
+                hasKnife = true;
+                Destroy(other.gameObject);
+            }
+            else { return; }
         }
     }
 
@@ -142,12 +211,27 @@ public class PlayerTest : MonoBehaviour
         }
     }
 
+    void SwitchWeapon(int index)
+    {
+
+        for (int i = 0; i < weaponCount; i++)
+        {
+            if (i == index)
+            {
+                weapons[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                weapons[i].gameObject.SetActive(false);
+            }
+        }
+    }
+ 
     public Vector3 CurrentLocation()
     {
         Vector3 playerLocation = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         return playerLocation;
     }
-
 
     private void energyDrainControl()
     {
@@ -186,21 +270,32 @@ public class PlayerTest : MonoBehaviour
         if (Input.GetButtonUp("Fire1"))
         {
             StopCoroutine(firingCoroutine);
+            StartCoroutine(ResetFiring());
         }
     }
 
+    IEnumerator ResetFiring()
+    {
+        yield return new WaitForSeconds(projectileFiringPeriod);
+        canShoot = true;
+        StopCoroutine(ResetFiring());
+    }
 
     IEnumerator FireContinuously()
     {
         while (true)
         {
-            if (isUnarmed == true) { yield return new WaitForSeconds(projectileFiringPeriod); }
-            else
+            if (isUnarmed == true) { yield return new WaitForSeconds(waitTimer); }
+            else if (canShoot == true)
             {
                 GameObject projectiles = Instantiate(projectile, gunBarrel.position, gunBarrel.rotation) as GameObject;
                 projectiles.GetComponent<Rigidbody2D>().velocity = gunBarrel.up * -10f;
+                canShoot = false;
                 yield return new WaitForSeconds(projectileFiringPeriod);
+                canShoot = true;
             }
+            else
+            { yield return new WaitForSeconds(waitTimer); }
         }
     }
 

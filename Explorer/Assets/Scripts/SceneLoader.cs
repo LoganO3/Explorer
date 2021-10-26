@@ -18,4 +18,8 @@ public class SceneLoader : MonoBehaviour
     {
         Application.Quit();
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        LoadNextScene();
+    }
 }
