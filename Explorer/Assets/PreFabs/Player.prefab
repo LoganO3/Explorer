@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 488807726}
   - component: {fileID: 488807727}
+  - component: {fileID: 1938438568}
   m_Layer: 7
   m_Name: Shotgun
   m_TagString: Untagged
@@ -27,7 +28,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: -0.7071068}
   m_LocalPosition: {x: -0.732, y: 0.1686, z: 0}
   m_LocalScale: {x: 0.22049887, y: 0.906144, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 7715704881544367431}
   m_Father: {fileID: 7046635069588075539}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
@@ -82,6 +84,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1938438568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488807725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2739c9715cd1034f89c88c0ecadbe1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunBarrel: {fileID: 7715704881544367431}
+  projectile: {fileID: 9147475096757408091, guid: d43ad4c11941a284a9d6fd1942f2f9da, type: 3}
+  projectileFiringPeriod: 2
+  canShoot: 1
 --- !u!1 &1042541676
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,6 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1042541677}
   - component: {fileID: 1042541678}
+  - component: {fileID: 1567156641}
   m_Layer: 7
   m_Name: Pistol
   m_TagString: Untagged
@@ -110,7 +129,7 @@ Transform:
   m_LocalPosition: {x: -0.479, y: 0.2, z: 0}
   m_LocalScale: {x: 0.07, y: 0.4, z: 1}
   m_Children:
-  - {fileID: 4149799888586747673}
+  - {fileID: 1934408984526352211}
   m_Father: {fileID: 7046635069588075539}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
@@ -165,6 +184,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1567156641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042541676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2739c9715cd1034f89c88c0ecadbe1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunBarrel: {fileID: 1934408984526352211}
+  projectile: {fileID: 9147475096757408091, guid: ba9fdc2b6d6be3a4fb0c3ed7aea1ac3d, type: 3}
+  projectileFiringPeriod: 1
+  canShoot: 1
 --- !u!1 &2386782156823051834
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3429514025992887648}
   - component: {fileID: 5380016415745872749}
+  - component: {fileID: 1876514287}
   m_Layer: 7
   m_Name: Automatic
   m_TagString: Untagged
@@ -192,9 +228,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: -0.7071068}
   m_LocalPosition: {x: -0.5589001, y: 0.20259988, z: 0}
   m_LocalScale: {x: 0.07521, y: 0.55983996, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 8765872841337110144}
   m_Father: {fileID: 7046635069588075539}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
 --- !u!212 &5380016415745872749
 SpriteRenderer:
@@ -247,6 +284,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1876514287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2386782156823051834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2739c9715cd1034f89c88c0ecadbe1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunBarrel: {fileID: 8765872841337110144}
+  projectile: {fileID: 9147475096757408091, guid: 5b2c237ef7d08ab41af4c8e2e927df7d, type: 3}
+  projectileFiringPeriod: 0.1
+  canShoot: 1
+--- !u!1 &2765821606253602823
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8765872841337110144}
+  m_Layer: 7
+  m_Name: Automatic Barrel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8765872841337110144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2765821606253602823}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 0.9307273, y: 0.71449006, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3429514025992887648}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4012576266894686113
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,12 +340,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4149799888586747673}
   m_Layer: 7
-  m_Name: Barrel
+  m_Name: Sniper Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4149799888586747673
 Transform:
   m_ObjectHideFlags: 0
@@ -270,11 +353,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4012576266894686113}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6151143, y: 0.36073744, z: 1}
   m_Children: []
-  m_Father: {fileID: 1042541677}
+  m_Father: {fileID: 3748394399373268060}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4850441114275741390
@@ -359,6 +442,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4890975578755389131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7715704881544367431}
+  m_Layer: 7
+  m_Name: Shotgun Barrel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7715704881544367431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4890975578755389131}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 0.3174619, y: 0.441431, z: 1}
+  m_Children: []
+  m_Father: {fileID: 488807726}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6497848499281310513
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,6 +482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3748394399373268060}
   - component: {fileID: 1248171906473009820}
+  - component: {fileID: 1519228524}
   m_Layer: 7
   m_Name: Sniper
   m_TagString: Untagged
@@ -386,9 +500,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: -0.7071068}
   m_LocalPosition: {x: -0.8334, y: 0.2219001, z: 0}
   m_LocalScale: {x: 0.1138, y: 1.10884, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4149799888586747673}
   m_Father: {fileID: 7046635069588075539}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
 --- !u!212 &1248171906473009820
 SpriteRenderer:
@@ -441,6 +556,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1519228524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6497848499281310513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2739c9715cd1034f89c88c0ecadbe1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunBarrel: {fileID: 4149799888586747673}
+  projectile: {fileID: 9147475096757408091, guid: e314c151769305e46a793dc19342e566, type: 3}
+  projectileFiringPeriod: 3
+  canShoot: 1
 --- !u!1 &7046635069588075566
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,8 +606,8 @@ Transform:
   m_Children:
   - {fileID: 872205184930632758}
   - {fileID: 1042541677}
-  - {fileID: 3429514025992887648}
   - {fileID: 3748394399373268060}
+  - {fileID: 3429514025992887648}
   - {fileID: 488807726}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -601,16 +732,8 @@ MonoBehaviour:
   health: 100
   energy: 100
   energyDrainTimer: 0
-  gunBarrel: {fileID: 4149799888586747673}
-  projectile: {fileID: 9147475096757408091, guid: ba9fdc2b6d6be3a4fb0c3ed7aea1ac3d, type: 3}
-  projectileFiringPeriod: 1
   accessLevel: 0
   invisabilityDurration: 1
-  hasPistol: 0
-  hasAutomatic: 0
-  hasShotgun: 0
-  hasSniper: 0
-  hasKnife: 0
   weapons:
   - {fileID: 4850441114275741390}
   - {fileID: 1042541676}
@@ -619,4 +742,33 @@ MonoBehaviour:
   - {fileID: 488807725}
   currentWeapon: 1000
   isUnarmed: 1
-  canShoot: 1
+--- !u!1 &8739797596457321763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1934408984526352211}
+  m_Layer: 7
+  m_Name: Pistol Barrel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1934408984526352211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8739797596457321763}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1042541677}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

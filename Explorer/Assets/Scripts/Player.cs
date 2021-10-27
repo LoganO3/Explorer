@@ -10,14 +10,9 @@ public class Player : MonoBehaviour
     [SerializeField] float health = 100f;
     [SerializeField] float energy = 100f;
     [SerializeField] float energyDrainTimer = 0f;
-    [Header("Shooting")]
-    [SerializeField] Transform gunBarrel;
-    [SerializeField] public GameObject projectile;
-    [SerializeField] public float projectileFiringPeriod = 1f;
     [Header("Misc")]
     [SerializeField] public int accessLevel = 0;
     [SerializeField] float invisabilityDurration = 1f;
-    [Header("Weapons")]
 
     public GameObject[] weapons;
     public int currentWeapon = 0;
@@ -25,7 +20,6 @@ public class Player : MonoBehaviour
     private Vector2 lookDirection;
     private float lookAngle;
     public bool isUnarmed = true;
-    public bool canShoot = true;
 
     bool hasPistol = false;
     bool hasAutomatic = false;
@@ -54,7 +48,6 @@ public class Player : MonoBehaviour
         lookAngle = Mathf.Atan2(lookDirection.x, lookDirection.y) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, -lookAngle - 90f);
         Move();
-        Fire();
         EnergyDamage();
         energyDrainControl();
         hasCollided = false;
@@ -167,6 +160,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    public bool IsUnarmedCheck()
+    {
+        return isUnarmed;
+    }
+
     private void EnergyDamage()
     {
         if (energy >= 90)
@@ -248,44 +246,6 @@ public class Player : MonoBehaviour
     public float GetEnergy()
     {
         return energy;
-    }
-
-    private void Fire()
-    {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            firingCoroutine = StartCoroutine(FireContinuously());
-        }
-        if (Input.GetButtonUp("Fire1"))
-        {
-            StopCoroutine(firingCoroutine);
-            StartCoroutine(ResetFiring());
-        }
-    }
-
-    IEnumerator ResetFiring()
-    {
-        yield return new WaitForSeconds(projectileFiringPeriod);
-        canShoot = true;
-        StopCoroutine(ResetFiring());
-    }
-
-    IEnumerator FireContinuously()
-    {
-        while (true)
-        {
-            if (isUnarmed == true) { yield return new WaitForSeconds(waitTimer); }
-            else if (canShoot == true)
-            {
-                GameObject projectiles = Instantiate(projectile, gunBarrel.position, gunBarrel.rotation) as GameObject;
-                projectiles.GetComponent<Rigidbody2D>().velocity = gunBarrel.up * -10f;
-                canShoot = false;
-                yield return new WaitForSeconds(projectileFiringPeriod);
-                canShoot = true;
-            }
-            else
-            { yield return new WaitForSeconds(waitTimer); }
-        }
     }
 
     IEnumerator Invisability()
