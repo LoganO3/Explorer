@@ -29,10 +29,13 @@ public class Enemy : MonoBehaviour
     private void Move()
    {
         if (!player) { return; }
-        var targetPosition = player.CurrentLocation();
-        var movementThisFrame = moveSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards
-        (transform.position, targetPosition, movementThisFrame);
+        else
+        {
+            var targetPosition = player.CurrentLocation();
+            var movementThisFrame = moveSpeed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards
+            (transform.position, targetPosition, movementThisFrame);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

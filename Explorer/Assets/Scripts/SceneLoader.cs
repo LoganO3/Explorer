@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,21 +6,28 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public void LoadNextScene()
+    [SerializeField] float delayInSeconds = 1f;
+
+    public void LoadGameOver()
     {
-        int CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(CurrentSceneIndex + 1);
+        StartCoroutine(DelayForSeconds());
     }
     public void LoadStartScene()
     {
         SceneManager.LoadScene(0);
     }
-    public void QuitGame()
+    public void LoadNextScene()
+    {
+        int CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(CurrentSceneIndex + 1);
+    }
+        public void QuitGame()
     {
         Application.Quit();
     }
-    private void OnTriggerEnter2D(Collider2D other)
+    IEnumerator DelayForSeconds()
     {
-        LoadNextScene();
+        yield return new WaitForSeconds(delayInSeconds);
+        SceneManager.LoadScene(2);
     }
 }

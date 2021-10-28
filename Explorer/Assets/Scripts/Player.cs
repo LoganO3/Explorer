@@ -20,13 +20,11 @@ public class Player : MonoBehaviour
     private Vector2 lookDirection;
     private float lookAngle;
     public bool isUnarmed = true;
-
     bool hasPistol = false;
     bool hasAutomatic = false;
     bool hasShotgun = false;
     bool hasSniper = false;
     bool hasKnife = false;
-    float waitTimer = .25f;
     float moventCheckTimer = .5f;
     bool hasCollided = false;
     bool hasMoved = false;
@@ -121,6 +119,7 @@ public class Player : MonoBehaviour
         health -= damageDealer.GetDamage();
         if (health <= 0)
         {
+            FindObjectOfType<SceneLoader>().LoadGameOver();
             Destroy(gameObject);
         }
     }
@@ -131,10 +130,10 @@ public class Player : MonoBehaviour
         damageDealer.Hit();
         if (health <= 0)
         {
+            FindObjectOfType<SceneLoader>().LoadGameOver();
             Destroy(gameObject);
         }
     }
-
     private void Move()
     {
         var deltax = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;

@@ -9,7 +9,11 @@ public class CameraTracker : MonoBehaviour
 
     void Update()
     {
-        float newZPosition = Player.transform.position.z - offset.z;
-        transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y, -newZPosition);
+        if (!Player) { return; }
+        else
+        {
+            float newZPosition = Player.transform.position.z - offset.z;
+            transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y, -newZPosition);
+        }
     }
 }
