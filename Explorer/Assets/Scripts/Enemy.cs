@@ -45,7 +45,22 @@ public class Enemy : MonoBehaviour
             hasCollided = true;
             DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
             Projectile projectile = other.gameObject.GetComponent<Projectile>();
-            if (projectile) { HandleProjectileDamage(damageDealer); Debug.Log("hit"); }
+                if (projectile)
+                {
+                 HandleProjectileDamage(damageDealer);
+                }
+                else if (damageDealer)
+                {
+                HandleDamage(damageDealer);
+                }
+        }
+    }
+    private void HandleDamage(DamageDealer damageDealer)
+    {
+        health -= damageDealer.GetDamage();
+        if (health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 

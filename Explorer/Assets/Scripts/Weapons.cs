@@ -24,11 +24,19 @@ public class Weapons : MonoBehaviour
     {
         Fire();
     }
+
     private void Fire()
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            firingCoroutine = StartCoroutine(FireContinuously());
+            if (player.currentWeapon == 0)
+            {
+                    return;
+            }
+            else
+            { 
+                firingCoroutine = StartCoroutine(FireContinuously());
+            }
         }
         if (Input.GetButtonUp("Fire1"))
         {

@@ -134,6 +134,7 @@ public class Player : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     private void Move()
     {
         var deltax = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
@@ -143,6 +144,7 @@ public class Player : MonoBehaviour
         var newYPos = transform.position.y + deltay;
         transform.position = new Vector2(newXPos, newYPos);
     }
+
     void SwitchWeapon(int index)
     {
 
@@ -158,7 +160,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-
+    
     public bool IsUnarmedCheck()
     {
         return isUnarmed;
