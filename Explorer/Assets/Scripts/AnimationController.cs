@@ -5,19 +5,16 @@ using UnityEngine;
 public class AnimationController : MonoBehaviour
 {
 
-    [SerializeField] GameObject playerModel;
-
-    Player player;
+    public GameObject playerModel;
 
     void Update()
     {
-        if (player.currentWeapon == 0)
+        if (playerModel.GetComponent<Player>().currentWeapon == 0)
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                playerModel.GetComponent<Animation>().Play("KnifeSwing");
+                playerModel.GetComponent<Animator>().Play("KnifeSwing");
             }
-
         }
     }
 }
