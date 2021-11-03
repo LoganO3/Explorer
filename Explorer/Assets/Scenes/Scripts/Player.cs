@@ -20,11 +20,11 @@ public class Player : MonoBehaviour
     private Vector2 lookDirection;
     private float lookAngle;
     public bool isUnarmed = true;
-    bool hasPistol = false;
-    bool hasAutomatic = false;
-    bool hasShotgun = false;
-    bool hasSniper = false;
-    bool hasKnife = false;
+    public bool hasPistol = false;
+    public bool hasAutomatic = false;
+    public bool hasShotgun = false;
+    public bool hasSniper = false;
+    public bool hasKnife = false;
     float moventCheckTimer = .5f;
     bool hasCollided = false;
     bool hasMoved = false;
