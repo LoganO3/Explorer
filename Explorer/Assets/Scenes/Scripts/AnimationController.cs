@@ -9,7 +9,8 @@ public class AnimationController : MonoBehaviour
 
     void Update()
     {
-        if (playerModel.GetComponent<Player>().currentWeapon == 0)
+        if (!playerModel) { return;}
+       else if (playerModel.GetComponent<Player>().currentWeapon == 0)
         {
             if (Input.GetButtonDown("Fire1"))
             {
