@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/1st room scenes/Level 1.unity
     guid: fa1c522e3247303429e9c8b1c12ec641
   - enabled: 1
+    path: Assets/Scenes/1st room scenes/Level 2 Introduction.unity
+    guid: 2bca83fcec0e2d64faef93a6fa5a131b
+  - enabled: 1
     path: Assets/Scenes/1st room scenes/Level 2.unity
     guid: 1cbbe46412e0891469aa3032a5838e18
   - enabled: 1
