@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Start Game Screen 1.unity
     guid: f99d2a4955d63f04c9175484143ee177
   - enabled: 1
+    path: Assets/Scenes/1st room scenes/Tutroial.unity
+    guid: 964f2a1f4de9b884f983bbbec7541e46
+  - enabled: 1
     path: Assets/Scenes/1st room scenes/Level 1.unity
     guid: fa1c522e3247303429e9c8b1c12ec641
   - enabled: 1
