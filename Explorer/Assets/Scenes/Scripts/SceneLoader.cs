@@ -25,7 +25,15 @@ public class SceneLoader : MonoBehaviour
     {
         Application.Quit();
     }
-    IEnumerator DelayForSeconds()
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Player player = other.gameObject.GetComponent<Player>();
+        if (player)
+        {
+            LoadNextScene();
+        }
+    }
+        IEnumerator DelayForSeconds()
     {
         yield return new WaitForSeconds(delayInSeconds);
         SceneManager.LoadScene(2);
