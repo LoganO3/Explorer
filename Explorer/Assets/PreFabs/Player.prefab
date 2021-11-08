@@ -717,7 +717,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0, g: 0.509434, b: 0.07898946, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -806,6 +806,11 @@ MonoBehaviour:
   - {fileID: 488807725}
   currentWeapon: 1000
   isUnarmed: 1
+  hasPistol: 0
+  hasAutomatic: 0
+  hasShotgun: 0
+  hasSniper: 0
+  hasKnife: 0
 --- !u!95 &1834003632
 Animator:
   serializedVersion: 3
