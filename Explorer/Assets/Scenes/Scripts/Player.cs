@@ -38,10 +38,6 @@ public class Player : MonoBehaviour
         SwitchWeapon(currentWeapon);
         StartCoroutine(MovementCheck());
     }
-    private void Awake()
-    {
-        SetUpSingleton();
-    }
 
     // Update is called once per frame
     void Update()
@@ -66,20 +62,6 @@ public class Player : MonoBehaviour
                 if (i == 5 && hasShotgun == true) { SwitchWeapon(currentWeapon); }
                 else { return; }
             }
-        }
-    }
-
-
-    private void SetUpSingleton()
-    {
-        int numberGameStatus = FindObjectsOfType<Player>().Length;
-        if (numberGameStatus > 1)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            DontDestroyOnLoad(gameObject);
         }
     }
 
